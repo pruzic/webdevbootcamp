@@ -1,0 +1,141 @@
+<!DOCTYPE  html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>
+        Circles
+    </title>
+    <script type="text/javascript" src="./paper-full.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.0.2/howler.js"></script>
+<link rel="stylesheet" type="text/css" href="circle.css" >
+<script type="text/paperscript" canvas="myCanvas">
+
+// var sound = new Howl({
+//   src: ["sounds/bubbles.mp3"]
+// });
+
+var keyData = {
+
+   tab: { color: "rgb(246, 116, 13)", sound: new Howl({src:["sounds/clay.mp3"]})},
+   "caps-lock": { color: "rgb(187, 81, 192)", sound: new Howl({src: ["sounds/confetti.mp3"]})},
+   shift: { color: "rgb(21, 19, 128)",sound: new Howl({src: ["sounds/corona.mp3"]})},
+   control: { color: "rgb(139, 68, 76)",sound: new Howl({src: ["sounds/dotted-spiral.mp3"]})},
+   enter: { color: "rgb(139, 2, 220)",sound: new Howl({src: ["sounds/flash-1.mp3"]})},
+   alt: { color: "rgb(66, 33, 117)",sound: new Howl({src: ["sounds/flash-2.mp3"]})},
+   1: { color: "rgb(88, 198, 161)",sound: new Howl({src: ["sounds/flash-3.mp3"]})},
+   2: { color: "rgb(203, 226, 43)",sound: new Howl({src: ["sounds/glimmer.mp3"]})},
+   3: { color: "rgb(48, 172, 74)",sound: new Howl({src: ["sounds/moon.mp3"]})},
+   4: { color: "rgb(23, 96, 120)",sound: new Howl({src: ["sounds/pinwheel.mp3"]})},
+   5: { color: "rgb(228, 168, 42)",sound: new Howl({src: ["sounds/piston-1.mp3"]})},
+   6: { color: "rgb(9, 97, 253)",sound: new Howl({src: ["sounds/piston-2.mp3"]})},
+   7: { color: "rgb(121, 43, 49)",sound: new Howl({src: ["sounds/piston-3.mp3"]})},
+   8: { color: "rgb(233, 78, 179)",sound: new Howl({src: ["sounds/prism-1.mp3"]})},
+   9: { color: "rgb(173, 231, 216)",sound: new Howl({src: ["sounds/prism-2.mp3"]})},
+   0: { color: "rgb(9, 16, 112)",sound: new Howl({src: ["sounds/prism-2.mp3"]})},
+   "+": { color: "rgb(184, 241, 193)",sound: new Howl({src: ["sounds/prism-3.mp3"]})},
+   "-": { color: "rgb(87, 17, 206)",sound: new Howl({src: ["sounds/splits.mp3"]})},
+   "*": { color: "rgb(104, 133, 6)",sound: new Howl({src: ["sounds/squiggle.mp3"]})},
+    backspace: { color: "rgb(88, 140, 138)",sound: new Howl({src: ["sounds/suspension.mp3"]})},
+   "=": { color: "rgb(114, 136, 114)",sound: new Howl({src: ["sounds/strike.mp3"]})},
+   delete: { color: "rgb(1, 126, 153)",sound: new Howl({src: ["sounds/timer.mp3"]})},
+   home: { color: "rgb(222, 13, 214)",sound: new Howl({src: ["sounds/suspension.mp3"]})},
+  "page-up": { color: "rgb(106, 37, 141)",sound: new Howl({src: ["sounds/ufo.mp3"]})},
+  end: { color: "rgb(21, 100, 208)",sound: new Howl({src: ["sounds/timer.mp3"]})},
+  "page-down": { color: "rgb(13, 119, 44)",sound: new Howl({src: ["sounds/veil.mp3"]})},
+  up: { color: "rgb(85, 82, 233)",sound: new Howl({src: ["sounds/zig-zag.mp3"]})},
+  down: { color: "rgb(45, 13, 185)", sound: new Howl({src:["sounds/bubbles.mp3"]})},
+  left: { color: "rgb(5, 212, 69)", sound: new Howl({src:["sounds/clay.mp3"]})},
+  right: { color: "rgb(218, 38, 36)", sound: new Howl({src: ["sounds/confetti.mp3"]})},
+  "\\": { color: "rgb(52, 34, 44)",sound: new Howl({src: ["sounds/corona.mp3"]})},
+  "]": { color: "rgb(43, 136, 75)",sound: new Howl({src: ["sounds/dotted-spiral.mp3"]})},
+  "[": { color: "rgb(142, 166, 224)",sound: new Howl({src: ["sounds/flash-1.mp3"]})},
+  q: { color: "rgb(117, 57, 55)",sound: new Howl({src: ["sounds/flash-2.mp3"]})},
+  w: { color: "rgb(147, 93, 208)",sound: new Howl({src: ["sounds/flash-3.mp3"]})},
+  e: { color: "rgb(101, 134, 187)",sound: new Howl({src: ["sounds/glimmer.mp3"]})},
+  r: { color: "rgb(91, 212, 3)",sound: new Howl({src: ["sounds/moon.mp3"]})},
+  t: { color: "rgb(42, 152, 196)",sound: new Howl({src: ["sounds/pinwheel.mp3"]})},
+  y: { color: "rgb(215, 243, 149)",sound: new Howl({src: ["sounds/piston-1.mp3"]})},
+  u: { color: "rgb(137, 254, 148)",sound: new Howl({src: ["sounds/piston-2.mp3"]})},
+  i: { color: "rgb(205, 97, 40)",sound: new Howl({src: ["sounds/piston-3.mp3"]})},
+  o: { color: "rgb(230, 253, 124)",sound: new Howl({src: ["sounds/prism-1.mp3"]})},
+  p: { color: "rgb(61, 113, 253)",sound: new Howl({src: ["sounds/prism-2.mp3"]})},
+  a: { color: "rgb(243, 83, 67)", sound: new Howl({src:["sounds/bubbles.mp3"]})},
+  s: { color: "rgb(115, 182, 82)",sound: new Howl({src: ["sounds/prism-2.mp3"]})},
+  d: { color: "rgb(113, 196, 10)",sound: new Howl({src: ["sounds/prism-3.mp3"]})},
+  f: { color: "rgb(78, 243, 60)",sound: new Howl({src: ["sounds/splits.mp3"]})},
+  g: { color: "rgb(197, 235, 80)",sound: new Howl({src: ["sounds/squiggle.mp3"]})},
+  h: { color: "rgb(213, 90, 173)",sound: new Howl({src: ["sounds/strike.mp3"]})},
+  j: { color: "rgb(131, 201, 153)",sound: new Howl({src: ["sounds/suspension.mp3"]})},
+  k: { color: "rgb(137, 64, 139)",sound: new Howl({src: ["sounds/clay.mp3"]})},
+  l: { color: "rgb(224, 239, 150)",sound: new Howl({src: ["sounds/timer.mp3"]})},
+  ";": { color: "rgb(244, 45, 23)",sound: new Howl({src: ["sounds/bubbles.mp3"]})},
+ "'": { color: "rgb(157, 199, 125)",sound: new Howl({src: ["sounds/ufo.mp3"]})},
+ meta: { color: "rgb(114, 28, 142)",sound: new Howl({src: ["sounds/veil.mp3"]})},
+ z: { color: "rgb(59, 72, 60)",sound: new Howl({src: ["sounds/zig-zag.mp3"]})},
+ x: { color: "rgb(247, 179, 48)", sound: new Howl({src:["sounds/bubbles.mp3"]})},
+ c: { color: "rgb(194, 254, 72)", sound: new Howl({src:["sounds/clay.mp3"]})},
+ v: { color: "rgb(91, 170, 253)", sound: new Howl({src: ["sounds/confetti.mp3"]})},
+ b: { color: "rgb(162, 180, 28)",sound: new Howl({src: ["sounds/corona.mp3"]})},
+ n: { color: "rgb(13, 2, 232)",sound: new Howl({src: ["sounds/dotted-spiral.mp3"]})},
+ m: { color: "rgb(232, 153, 224)",sound: new Howl({src: ["sounds/flash-1.mp3"]})},
+ ",": { color: "rgb(99, 90, 217)",sound: new Howl({src: ["sounds/flash-2.mp3"]})},
+ ".": { color: "rgb(186, 240, 29)",sound: new Howl({src: ["sounds/flash-3.mp3"]})},
+ "/": { color: "rgb(229, 184, 208)",sound: new Howl({src: ["sounds/glimmer.mp3"]})},
+ space: { color: "rgb(156, 172, 137)",sound: new Howl({src: ["sounds/moon.mp3"]})}
+};
+
+var circles = [];
+
+function onKeyDown(event) {
+	// When a key is pressed, set the content of the text item:
+  console.log(event.key);
+      //sound.play();
+      //3a
+      // var red = Math.floor((Math.random() * 260) + 1);
+      // var green = Math.floor((Math.random() * 260) + 1);
+      // var blue = Math.floor((Math.random() * 260) + 1);
+
+      // var width = Math.floor((Math.random() * view.size.width) + 1);
+      // var height = Math.floor((Math.random() * view.size.height) + 1);
+      // console.log(view.size);
+      // var myCircle = new Path.Circle(new Point(width, height), 50);
+
+      //Paper.js version of getting max screen size with random position.
+
+      if(keyData[event.key]){
+
+          var maxPoint = new Point(view.size.width, view.size.height);
+          var randomPoint = Point.random();
+          var point = maxPoint * randomPoint;
+
+          var myCircle = new Path.Circle(point, 100);
+          // myCircle.fillColor =  "rgb(" + red + "," + green + "," + blue + ")";
+          myCircle.fillColor =  keyData[event.key].color;
+          keyData[event.key].sound.play();
+           circles.push(myCircle);
+     }
+}
+
+function onFrame(event){
+  for(var i = 0; i < circles.length; i++){
+    circles[i].fillColor.hue += 1;
+    circles[i].scale(.9);
+    if(circles[i].area < 1){
+      circles[i].remove();
+      circles.splice(i, 1);
+      console.log(circles);
+    }
+  }
+}
+
+</script>
+</head>
+
+<body>
+
+
+    <canvas id="myCanvas" resize></canvas>
+</body>
+
+</html>
